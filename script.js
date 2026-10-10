@@ -18,22 +18,21 @@
     const dismissLoader = () => {
       if (loaderDismissed) return;
       loaderDismissed = true;
-      const minimumDuration = reduceMotion ? 120 : 520;
+      const minimumDuration = reduceMotion ? 500 : 1450;
       const remaining = Math.max(0, minimumDuration - (performance.now() - loaderStartedAt));
-      window.setTimeout(() => root.classList.remove("page-loading"), remaining);
+      window.setTimeout(() => {
+        root.classList.remove("page-loading");
+      }, remaining);
     };
     const loaderFallback = window.setTimeout(dismissLoader, 2500);
-    window.addEventListener(
-      "load",
-      () => {
-        window.clearTimeout(loaderFallback);
-        dismissLoader();
-      },
-      { once: true },
-    );
-    if (document.readyState === "complete") {
+    const onDocumentReady = () => {
       window.clearTimeout(loaderFallback);
       dismissLoader();
+    };
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", onDocumentReady, { once: true });
+    } else {
+      onDocumentReady();
     }
   }
 

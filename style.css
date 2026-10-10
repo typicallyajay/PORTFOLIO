@@ -6,8 +6,6 @@
    Silky text reveal scroll motion.
    ========================================================= */
 
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700;800&display=swap");
-
 :root {
   /* Surface & Base Canvas (Light Theme) */
   --bg-base: #f3f2ee;
@@ -208,6 +206,37 @@ strong {
   font: 700 1.35rem/1 var(--font-display);
   letter-spacing: -0.08em;
 }
+.page-loader__greeting {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-width: 9ch;
+  height: 1.25em;
+  color: #fff;
+  font-family: "Noto Sans Devanagari", "Noto Sans JP", "Noto Sans Arabic", "Segoe UI", sans-serif;
+  font-size: clamp(1.8rem, 5vw, 2.4rem);
+  font-weight: 700;
+  line-height: 1.25;
+  text-align: center;
+}
+.page-loader__greeting span {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  animation: greeting-cycle 190ms ease both;
+}
+.page-loader__greeting span:nth-child(1) { animation-delay: 0ms; }
+.page-loader__greeting span:nth-child(2) { animation-delay: 190ms; }
+.page-loader__greeting span:nth-child(3) { animation-delay: 380ms; }
+.page-loader__greeting span:nth-child(4) { animation-delay: 570ms; }
+.page-loader__greeting span:nth-child(5) { animation-delay: 760ms; }
+.page-loader__greeting span:nth-child(6) { animation-delay: 950ms; }
+.page-loader__greeting span:nth-child(7) { animation-delay: 1140ms; }
+.page-loader__greeting span[dir="rtl"] {
+  direction: rtl;
+}
 .page-loader__label {
   color: rgba(241, 245, 249, 0.8);
   font-family: var(--font-mono);
@@ -236,6 +265,11 @@ strong {
 @keyframes loader-progress {
   0% { transform: translateX(-110%); }
   100% { transform: translateX(250%); }
+}
+@keyframes greeting-cycle {
+  0% { opacity: 0; transform: translateY(6px); }
+  20%, 80% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-5px); }
 }
 
 .scroll-progress {
@@ -1640,8 +1674,12 @@ strong {
 @media (prefers-reduced-motion: reduce) {
   .page-loader__mark,
   .page-loader__track span,
+  .page-loader__greeting span,
   .rope-toy__item {
     animation: none;
+  }
+  .page-loader__greeting span:first-child {
+    opacity: 1;
   }
   .page-loader {
     transition-duration: 0.01ms;
