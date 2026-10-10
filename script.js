@@ -10,6 +10,42 @@
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const root = document.documentElement;
   root.classList.add("js");
+  const pageLoader = document.getElementById("pageLoader");
+  if (pageLoader) {
+    const loaderStartedAt = performance.now();
+    let loaderDismissed = false;
+    root.classList.add("page-loading");
+    const dismissLoader = () => {
+      if (loaderDismissed) return;
+      loaderDismissed = true;
+      const minimumDuration = reduceMotion ? 120 : 520;
+      const remaining = Math.max(0, minimumDuration - (performance.now() - loaderStartedAt));
+      window.setTimeout(() => root.classList.remove("page-loading"), remaining);
+    };
+    const loaderFallback = window.setTimeout(dismissLoader, 2500);
+    window.addEventListener(
+      "load",
+      () => {
+        window.clearTimeout(loaderFallback);
+        dismissLoader();
+      },
+      { once: true },
+    );
+    if (document.readyState === "complete") {
+      window.clearTimeout(loaderFallback);
+      dismissLoader();
+    }
+  }
+
+  function scrollToSection(id) {
+    const section = document.getElementById(id);
+    if (!section) return;
+    history.pushState(null, "", `#${id}`);
+    section.scrollIntoView({
+      behavior: reduceMotion ? "auto" : "smooth",
+      block: "start",
+    });
+  }
 
   // ---------- Footer year ----------
   const yearEl = document.getElementById("year");
@@ -88,12 +124,128 @@
     });
   }
 
-  // ---------- Nav: condense, progress, active link ----------
-  const nav = document.getElementById("nav");
+  // ---------- Draggable elastic tech charms ----------
+  const ropeToy = document.getElementById("ropeToy");
+  if (ropeToy) {
+    ropeToy.querySelectorAll(".rope-toy__item").forEach((item) => {
+      const charm = item.querySelector(".rope-toy__charm");
+      const feedback = item.querySelector(".rope-toy__feedback");
+      let dragStart = null;
+      let snapTimer;
+      let feedbackTimer;
+      let pullDistance = 0;
+      let suppressClick = false;
+      const baseLength = () =>
+        parseFloat(getComputedStyle(item).getPropertyValue("--base-length")) || 24;
+      const setPull = (x, y) => {
+        const anchorLength = baseLength() + y;
+        item.style.setProperty("--pull-x", `${x}px`);
+        item.style.setProperty("--pull-y", `${y}px`);
+        item.style.setProperty("--cord-length", `${Math.hypot(x, anchorLength)}px`);
+        item.style.setProperty(
+          "--cord-angle",
+          `${(-Math.atan2(x, anchorLength) * 180) / Math.PI}deg`,
+        );
+      };
+      const snapBack = () => {
+        item.classList.remove("is-dragging");
+        setPull(0, 0);
+        if (pullDistance > 12) {
+          if (feedback) {
+            feedback.textContent = ["Boing!", "Nice pull!", "Stretch!", "Wheee!"][
+              Math.floor(Math.random() * 4)
+            ];
+            if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+              feedback.style.opacity = "1";
+            }
+          }
+          item.classList.remove("is-springing");
+          void item.offsetWidth;
+          item.classList.add("is-springing");
+          clearTimeout(feedbackTimer);
+          feedbackTimer = setTimeout(() => {
+            item.classList.remove("is-springing");
+            if (feedback) feedback.style.removeProperty("opacity");
+          }, 900);
+        }
+        pullDistance = 0;
+      };
+
+      charm.addEventListener("pointerdown", (event) => {
+        if (event.button !== 0 && event.pointerType === "mouse") return;
+        clearTimeout(snapTimer);
+        suppressClick = false;
+        const charmRect = charm.getBoundingClientRect();
+        const railRect = item.getBoundingClientRect();
+        dragStart = {
+          x: event.clientX,
+          y: event.clientY,
+          pointerId: event.pointerId,
+          minX: railRect.left - charmRect.left,
+          maxX: railRect.right - charmRect.right,
+        };
+        charm.setPointerCapture(event.pointerId);
+        item.classList.add("is-dragging");
+        event.preventDefault();
+      });
+      charm.addEventListener("pointermove", (event) => {
+        if (!dragStart || dragStart.pointerId !== event.pointerId) return;
+        const x = Math.max(
+          dragStart.minX,
+          Math.min(dragStart.maxX, event.clientX - dragStart.x),
+        );
+        const y = Math.max(-14, Math.min(14, event.clientY - dragStart.y));
+        pullDistance = Math.hypot(x, y);
+        setPull(x, y);
+      });
+      const finishDrag = (event) => {
+        if (!dragStart || dragStart.pointerId !== event.pointerId) return;
+        const shouldNavigate = pullDistance >= (window.innerWidth < 1600 ? 14 : 24);
+        suppressClick = pullDistance > 12;
+        dragStart = null;
+        snapBack();
+        if (shouldNavigate) scrollToSection(charm.dataset.target);
+      };
+      charm.addEventListener("pointerup", finishDrag);
+      charm.addEventListener("pointercancel", finishDrag);
+      charm.addEventListener("click", (event) => {
+        if (suppressClick) {
+          event.preventDefault();
+          suppressClick = false;
+          return;
+        }
+        scrollToSection(charm.dataset.target);
+      });
+      charm.addEventListener("keydown", (event) => {
+        const offsets = {
+          ArrowDown: [0, 18],
+          ArrowUp: [0, -18],
+          ArrowLeft: [-18, 0],
+          ArrowRight: [18, 0],
+        };
+        if (offsets[event.key]) {
+          event.preventDefault();
+          item.classList.add("is-dragging");
+          pullDistance = Math.hypot(...offsets[event.key]);
+          setPull(...offsets[event.key]);
+          clearTimeout(snapTimer);
+          snapTimer = setTimeout(snapBack, 650);
+        } else if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          snapBack();
+          scrollToSection(charm.dataset.target);
+        }
+      });
+    });
+  }
+
+  // ---------- Section dock and scroll progress ----------
   const progress = document.querySelector(".scroll-progress");
-  const links = Array.from(document.querySelectorAll(".nav-links a"));
-  const sections = links
-    .map((a) => document.querySelector(a.getAttribute("href")))
+  const toyLinks = ropeToy
+    ? Array.from(ropeToy.querySelectorAll(".rope-toy__charm"))
+    : [];
+  const sections = toyLinks
+    .map((button) => document.getElementById(button.dataset.target))
     .filter(Boolean);
 
   let ticking = false;
@@ -103,7 +255,6 @@
     requestAnimationFrame(() => {
       const y = window.scrollY;
       const max = document.documentElement.scrollHeight - window.innerHeight;
-      if (nav) nav.classList.toggle("scrolled", y > 12);
       if (progress) progress.style.transform = `scaleX(${max > 0 ? y / max : 0})`;
 
       // Active section = last section whose top has passed 35% of the viewport
@@ -112,13 +263,12 @@
       sections.forEach((s) => {
         if (s.offsetTop <= mark) current = s;
       });
-      links.forEach((a) => {
-        const active = current && a.getAttribute("href") === "#" + current.id;
-        a.classList.toggle("active", !!active);
-        if (active) a.setAttribute("aria-current", "true");
-        else a.removeAttribute("aria-current");
+      toyLinks.forEach((button) => {
+        const active = current && button.dataset.target === current.id;
+        button.classList.toggle("active", !!active);
+        if (active) button.setAttribute("aria-current", "location");
+        else button.removeAttribute("aria-current");
       });
-
       // Reveal elements as user scrolls down
       const vh = window.innerHeight || 900;
       document.querySelectorAll(".reveal:not(.is-visible)").forEach((el) => {
@@ -133,26 +283,16 @@
   }
   window.addEventListener("scroll", onScroll, { passive: true });
   window.addEventListener("resize", onScroll);
-
-  // ---------- Mobile menu ----------
-  const toggle = document.getElementById("navToggle");
-  function setMenu(open) {
-    if (!nav || !toggle) return;
-    nav.classList.toggle("menu-open", open);
-    toggle.setAttribute("aria-expanded", String(open));
-    toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
-    document.body.classList.toggle("no-scroll", open);
-  }
-  if (toggle) {
-    toggle.addEventListener("click", () => setMenu(!nav.classList.contains("menu-open")));
-    links.forEach((a) => a.addEventListener("click", () => setMenu(false)));
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") setMenu(false);
-    });
-    window.addEventListener("resize", () => {
-      if (window.innerWidth > 900) setMenu(false);
-    });
-  }
+  window.addEventListener("popstate", () => {
+    const section = document.getElementById(location.hash.slice(1));
+    if (section) {
+      section.scrollIntoView({
+        behavior: reduceMotion ? "auto" : "smooth",
+        block: "start",
+      });
+    }
+  });
+  onScroll();
 
   // ---------- Journey tabs (segmented control) ----------
   function bindJourneyTabs() {
