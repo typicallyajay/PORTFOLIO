@@ -5,9 +5,8 @@
   certifications, projects, contact) and injects it into the page.
 
   Load order (first one that works wins):
-    1. A draft saved by the admin portal in this browser's localStorage
-    2. data.json fetched from the server (works when hosted / on a local server)
-    3. window.PORTFOLIO_FALLBACK from data.js (works even when index.html is
+    1. data.json fetched from the server (works when hosted / on a local server)
+    2. window.PORTFOLIO_FALLBACK from data.js (works even when index.html is
        opened directly from disk, where fetch() is blocked by the browser)
 
   When rendering finishes it fires a "portfolio:rendered" event so script.js
@@ -15,8 +14,6 @@
 */
 
 (function () {
-  const LS_KEY = "portfolioData";
-
   // Escapes text for safe use in HTML content AND attribute values.
   function esc(str) {
     return String(str == null ? "" : str)
@@ -33,6 +30,15 @@
     return /^(https?:|mailto:|tel:)/i.test(u) ? u : "";
   }
 
+  function safeAboutHtml(text) {
+    return String(text == null ? "" : text)
+      .split(/(<\/?strong>)/gi)
+      .map((part) =>
+        /^<\/?strong>$/i.test(part) ? part.toLowerCase() : esc(part),
+      )
+      .join("");
+  }
+
   const ICON_CHECK =
     '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   const ICON_ARROW =
@@ -46,18 +52,7 @@
     x: '<svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M18.9 2H22l-6.78 7.75L23.2 22h-6.25l-4.9-7.42L5.56 22H2.43l7.25-8.29L1.8 2h6.4l4.43 6.77L18.9 2Zm-1.1 18h1.73L7.27 3.9H5.4L17.8 20Z"/></svg>',
   };
 
-  function getLocalDraft() {
-    try {
-      const raw = localStorage.getItem(LS_KEY);
-      return raw ? JSON.parse(raw) : null;
-    } catch (e) {
-      return null;
-    }
-  }
-
   function loadData() {
-    const draft = getLocalDraft();
-    if (draft) return Promise.resolve(draft);
     const fallback = window.PORTFOLIO_FALLBACK || null;
     if (location.protocol === "file:") return Promise.resolve(fallback);
     return fetch("data.json", { cache: "no-cache" })
@@ -82,9 +77,8 @@
 
     const aboutBody = $("[data-field='about-body']");
     if (aboutBody && Array.isArray(p.aboutParagraphs)) {
-      // aboutParagraphs intentionally allow simple <strong> markup from the admin.
       aboutBody.innerHTML = p.aboutParagraphs
-        .map((t) => `<p>${t}</p>`)
+        .map((t) => `<p>${safeAboutHtml(t)}</p>`)
         .join("");
     }
 
