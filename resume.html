@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ajay Kothari — Résumé</title>
+    <meta name="description" content="Official Résumé of Ajay Kothari — Aspiring Full-Stack Developer, AWS Student Builder Group Member, Head CMPICA Media Crew." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --text: #1d1d1f;
+        --muted: #4b5563;
+        --line: #e5e7eb;
+        --accent: #2563eb;
+      }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      body {
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+        color: var(--text);
+        background: #f3f4f6;
+        font-size: 10pt;
+        line-height: 1.45;
+        -webkit-font-smoothing: antialiased;
+      }
+      a { color: inherit; text-decoration: none; }
+      .toolbar {
+        position: sticky; top: 0; z-index: 5;
+        display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;
+        padding: 14px; background: rgba(243, 244, 246, 0.9);
+        backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+        border-bottom: 1px solid var(--line);
+      }
+      .tb-btn {
+        font: 500 14px/1 inherit; font-family: inherit;
+        padding: 10px 18px; border-radius: 980px; border: 1px solid transparent; cursor: pointer;
+        display: inline-flex; align-items: center; gap: 6px;
+      }
+      .tb-primary { background: #0f172a; color: #fff; }
+      .tb-ghost { background: #fff; color: var(--text); border-color: var(--line); }
+
+      .page {
+        width: 210mm; min-height: 297mm; margin: 24px auto 40px; background: #fff;
+        padding: 18mm 18mm 16mm; box-shadow: 0 10px 30px rgba(0,0,0,.06); border-radius: 4px;
+      }
+      header { text-align: center; padding-bottom: 14px; border-bottom: 2px solid #0f172a; }
+      h1 { font-size: 22pt; font-weight: 700; letter-spacing: -0.02em; text-transform: uppercase; color: #0f172a; }
+      .role-tagline { font-size: 10pt; font-weight: 600; color: #374151; margin-top: 4px; }
+      .contact-strip { font-size: 8.8pt; color: var(--muted); margin-top: 6px; line-height: 1.6; }
+      .contact-strip a:hover { color: var(--accent); text-decoration: underline; }
+
+      section { margin-top: 14px; }
+      h2 { font-size: 9.5pt; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+        color: #0f172a; border-bottom: 1px solid #111827; padding-bottom: 3px; margin-bottom: 8px; }
+      .objective { color: #374151; font-size: 9.4pt; text-align: justify; line-height: 1.5; }
+
+      .skill-row { display: grid; grid-template-columns: 140px 1fr; gap: 4px 12px; font-size: 9.4pt; margin-bottom: 3px; }
+      .skill-row dt { font-weight: 600; color: #111827; }
+      .skill-row dd { color: #374151; }
+
+      .item { margin-bottom: 11px; break-inside: avoid; }
+      .item:last-child { margin-bottom: 0; }
+      .row { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; }
+      .item h3 { font-size: 10pt; font-weight: 700; color: #111827; }
+      .meta { font-size: 8.8pt; color: var(--muted); white-space: nowrap; font-weight: 500; }
+      .sub-org { font-size: 9pt; color: var(--muted); font-weight: 500; }
+      ul.bullets { margin: 3px 0 0 16px; color: #374151; font-size: 9.2pt; }
+      ul.bullets li { margin-bottom: 2px; line-height: 1.45; }
+      .proj-title a { color: var(--accent); }
+      .proj-title a:hover { text-decoration: underline; }
+
+      .list-inline { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 9.2pt; color: #374151; }
+      .list-inline span::after { content: "•"; margin-left: 14px; color: #9ca3af; }
+      .list-inline span:last-child::after { content: ""; margin: 0; }
+
+      @page { size: A4; margin: 0; }
+      @media print {
+        body { background: #fff; }
+        .toolbar { display: none; }
+        .page { margin: 0; box-shadow: none; border-radius: 0; width: auto; min-height: auto; padding: 12mm 14mm; }
+      }
+      @media (max-width: 820px) {
+        .page { width: auto; margin: 0; border-radius: 0; padding: 20px 16px; min-height: 0; }
+        .row { flex-direction: column; gap: 2px; }
+        .skill-row { grid-template-columns: 1fr; gap: 2px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="toolbar">
+      <a class="tb-btn tb-ghost" href="index.html">← Back to portfolio</a>
+      <a class="tb-btn tb-primary" href="assets/Ajay_Kothari_Resume.pdf" download>Download Official PDF</a>
+      <button class="tb-btn tb-ghost" onclick="window.print()">Print</button>
+    </div>
+
+    <main class="page">
+      <header>
+        <h1>AJAY KOTHARI</h1>
+        <p class="role-tagline">Aspiring Full-Stack Developer | AWS Student Builder Group Member | Head, CMPICA Media Crew</p>
+        <p class="contact-strip">
+          Abu Road, Rajasthan, India | 9602589940 | <a href="mailto:ajaykothari2005@gmail.com">ajaykothari2005@gmail.com</a> | 
+          <a href="https://linkedin.com/in/ajaykothari-05318b245" target="_blank" rel="noopener noreferrer">linkedin.com/in/ajaykothari-05318b245</a> | 
+          <a href="https://github.com/typicallyajay" target="_blank" rel="noopener noreferrer">github.com/typicallyajay</a>
+        </p>
+      </header>
+
+      <section>
+        <h2>CAREER OBJECTIVE</h2>
+        <p class="objective">
+          BCA student building a strong foundation in programming, web development, and databases, with hands-on cloud exposure via the AWS Builders Group. Seeking an internship to apply Java, Python, C#, and full-stack development skills.
+        </p>
+      </section>
+
+      <section>
+        <h2>TECHNICAL SKILLS</h2>
+        <dl>
+          <div class="skill-row">
+            <dt>Programming:</dt>
+            <dd>C, C++, Java, Python, C#</dd>
+          </div>
+          <div class="skill-row">
+            <dt>Web Development:</dt>
+            <dd>HTML5, CSS, JavaScript, PHP, .NET</dd>
+          </div>
+          <div class="skill-row">
+            <dt>Database:</dt>
+            <dd>Oracle SQL, MySQL</dd>
+          </div>
+          <div class="skill-row">
+            <dt>Cloud:</dt>
+            <dd>AWS fundamentals — Member, AWS Student Builder Group, CHARUSAT</dd>
+          </div>
+        </dl>
+      </section>
+
+      <section>
+        <h2>EXPERIENCE</h2>
+        <div class="item">
+          <div class="row">
+            <h3>Media Team Member — AWS Student Builder Group, CHARUSAT</h3>
+            <span class="meta">Oct 2026 – Present</span>
+          </div>
+          <ul class="bullets">
+            <li>Collaborating with peers on cloud computing, AWS architecture, and hands-on DevOps practices.</li>
+          </ul>
+        </div>
+
+        <div class="item">
+          <div class="row">
+            <h3>CMPICA Media Crew Head — CMPICA, CHARUSAT</h3>
+            <span class="meta">Aug 2025 – Present</span>
+          </div>
+          <ul class="bullets">
+            <li>Lead a 16-member student media team, running it like a software project with structured processes.</li>
+            <li>Designed and built a structured MS Teams data pipeline, replacing scattered file-sharing with one organized, repeatable workflow for the crew.</li>
+            <li>Managing the full media rollout for Ignite 2026, coordinating people, deadlines, and deliverables.</li>
+            <li>Authored the official SOP to standardize crew operations to a professional-grade level.</li>
+          </ul>
+        </div>
+
+        <div class="item">
+          <div class="row">
+            <h3>Media Production Crew — CMPICA, CHARUSAT</h3>
+            <span class="meta">Aug 2024 – Aug 2025</span>
+          </div>
+          <ul class="bullets">
+            <li>Captured photography/video for major college events and produced Reels that boosted student engagement.</li>
+            <li>Designed posters and digital assets for event announcements, maintaining a consistent visual identity.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section>
+        <h2>PROJECTS</h2>
+        <div class="item">
+          <div class="row">
+            <h3 class="proj-title"><a href="https://github.com/typicallyajay/bob-ai-hackathon-MindMesh" target="_blank" rel="noopener noreferrer">THREATMESH — AI Threat-Intelligence Platform (Team Lead)</a></h3>
+            <span class="meta">BOB AI Hackathon by IBM</span>
+          </div>
+          <ul class="bullets">
+            <li>Led a team building an AI platform that correlates multi-source security alerts into explainable attack narratives, maps evidence to MITRE ATT&amp;CK, and includes a counterfactual analysis engine. Stack: Python, FastAPI, Next.js, React, PostgreSQL, IBM Bob, watsonx.ai.</li>
+          </ul>
+        </div>
+
+        <div class="item">
+          <div class="row">
+            <h3 class="proj-title"><a href="https://github.com/typicallyajay/PharmaTrackK" target="_blank" rel="noopener noreferrer">PharmaTrack — Pharmacy Stock &amp; Reminder System</a></h3>
+            <span class="meta"><a href="https://github.com/typicallyajay/PharmaTrackK" target="_blank" rel="noopener noreferrer">github.com/typicallyajay/PharmaTrackK</a></span>
+          </div>
+          <ul class="bullets">
+            <li>Full-stack PHP/MySQL app to search medicine stock across pharmacies and rank nearby alternatives by real distance (Haversine formula); implemented role-based access, bcrypt hashing, and PDO prepared statements.</li>
+          </ul>
+        </div>
+
+        <div class="item">
+          <div class="row">
+            <h3 class="proj-title"><a href="https://github.com/typicallyajay/Clean-Campus-Connect" target="_blank" rel="noopener noreferrer">Clean Campus Connect — Gamified Campus Cleanliness App</a></h3>
+            <span class="meta"><a href="https://github.com/typicallyajay/Clean-Campus-Connect" target="_blank" rel="noopener noreferrer">github.com/typicallyajay/Clean-Campus-Connect</a></span>
+          </div>
+          <ul class="bullets">
+            <li>&ldquo;Snap &amp; Report&rdquo; litter-reporting platform (HTML, CSS, JS) with Green Points and a competitive leaderboard.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section>
+        <h2>EDUCATION</h2>
+        <div class="item">
+          <div class="row">
+            <h3>CHARUSAT — BCA, Computer Application</h3>
+            <span class="meta">Jun 2024 – Jul 2027</span>
+          </div>
+        </div>
+        <div class="item">
+          <div class="row">
+            <h3>The Ummed International School — Class 12, Commerce</h3>
+            <span class="meta">2023 – 2024</span>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>CERTIFICATIONS</h2>
+        <div class="list-inline">
+          <span>IoV: 5G and Beyond for Autonomous and Connected Cars</span>
+          <span>Digital Product Management: Modern Fundamentals</span>
+          <span>Introduction to Systems Analysis</span>
+          <span>Generative AI for Everyone</span>
+        </div>
+      </section>
+
+      <section>
+        <h2>ACTIVITIES &amp; ACHIEVEMENTS</h2>
+        <div class="list-inline">
+          <span>AWS Community Day</span>
+          <span>BOB AI Hackathon by IBM</span>
+          <span>Smart India Hackathon (SIH)</span>
+        </div>
+      </section>
+
+      <section>
+        <h2>LANGUAGES</h2>
+        <div class="list-inline">
+          <span>English</span>
+          <span>Hindi</span>
+          <span>Gujarati</span>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

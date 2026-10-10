@@ -1,0 +1,138 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Admin Portal â€” Ajay Kothari</title>
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body class="admin-body">
+
+  <!-- LOGIN GATE -->
+  <div id="loginScreen" class="login-shell">
+    <h1>AK<span style="color:var(--accent)">.</span> Admin</h1>
+    <p>Enter the admin password to edit your site content.</p>
+    <div class="field-group" style="text-align:left;">
+      <label for="passwordInput">Password</label>
+      <input type="password" id="passwordInput" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" />
+    </div>
+    <button class="admin-btn" id="loginBtn" style="width:100%;">Unlock</button>
+    <p id="loginError" style="color:#ff6b6b; margin-top:12px; font-size:0.85rem; display:none;">Incorrect password.</p>
+  </div>
+
+  <!-- ADMIN PANEL (hidden until unlocked) -->
+  <div id="adminShell" class="admin-shell" style="display:none;">
+    <div class="admin-header">
+      <div>
+        <div class="logo">AK<span>.</span> <span style="font-size:1rem; opacity:.6;">/ admin</span></div>
+      </div>
+      <div class="admin-actions">
+        <a href="index.html" class="admin-btn secondary" target="_blank">View Site</a>
+        <button class="admin-btn secondary" id="logoutBtn">Log Out</button>
+      </div>
+    </div>
+
+    <div class="notice-banner">
+      <strong>How this works:</strong> Your site has no server/database, so "Save Draft" stores your
+      changes in this browser only, letting you preview them instantly on the live pages. To make a
+      change permanent and visible to <em>every</em> visitor, click <strong>Download data.json</strong>
+      below, then replace the <code>data.json</code> file in your website's files with the downloaded one
+      and re-upload/redeploy your site.
+    </div>
+
+    <div class="admin-panel">
+      <h2>Quick Actions</h2>
+      <div class="admin-actions">
+        <button class="admin-btn" id="saveDraftBtn">ðŸ’¾ Save Draft (preview in this browser)</button>
+        <button class="admin-btn" id="downloadBtn">â¬‡ Download data.json (make it permanent)</button>
+        <label class="admin-btn secondary" style="cursor:pointer;">
+          â¬† Load a data.json
+          <input type="file" id="loadFileInput" accept="application/json" style="display:none;" />
+        </label>
+        <button class="admin-btn secondary" id="resetBtn">Reset to Site Defaults</button>
+      </div>
+    </div>
+
+    <!-- PROFILE -->
+    <div class="admin-panel">
+      <h2>Profile & About</h2>
+      <div class="field-group">
+        <label>Full Name (shown as the big hero heading)</label>
+        <input type="text" id="p_name" />
+      </div>
+      <div class="field-group">
+        <label>Tagline</label>
+        <input type="text" id="p_tagline" />
+      </div>
+      <div class="field-group">
+        <label>"Who Am I" Section Title</label>
+        <input type="text" id="p_aboutTitle" />
+      </div>
+      <div class="field-group">
+        <label>About Paragraphs (one paragraph per line â€” you can use &lt;strong&gt;text&lt;/strong&gt; to bold words)</label>
+        <textarea id="p_about" rows="6"></textarea>
+      </div>
+      <div class="field-group">
+        <label>Quote</label>
+        <input type="text" id="p_quote" />
+      </div>
+    </div>
+
+    <!-- EDUCATION -->
+    <div class="admin-panel">
+      <h2>Education Timeline</h2>
+      <div id="educationList"></div>
+      <button class="admin-btn small" id="addEducationBtn">+ Add Education Entry</button>
+    </div>
+
+    <!-- SKILLS -->
+    <div class="admin-panel">
+      <h2>Skills</h2>
+      <div id="skillsList"></div>
+      <button class="admin-btn small" id="addSkillCategoryBtn">+ Add Skill Category</button>
+    </div>
+
+    <!-- CERTIFICATIONS -->
+    <div class="admin-panel">
+      <h2>Certifications</h2>
+      <div id="certificationsList"></div>
+      <button class="admin-btn small" id="addCertBtn">+ Add Certificate</button>
+    </div>
+
+    <!-- PROJECTS -->
+    <div class="admin-panel">
+      <h2>Projects</h2>
+      <div id="projectsList"></div>
+      <button class="admin-btn small" id="addProjectBtn">+ Add Project</button>
+    </div>
+
+    <!-- CONTACT -->
+    <div class="admin-panel">
+      <h2>Contact</h2>
+      <div class="field-row">
+        <div class="field-group">
+          <label>Email</label>
+          <input type="email" id="c_email" />
+        </div>
+        <div class="field-group">
+          <label>Phone</label>
+          <input type="text" id="c_phone" />
+        </div>
+      </div>
+      <label style="display:block; font-size:0.85rem; text-transform:uppercase; font-weight:700; color:var(--accent); margin-bottom:10px;">Social Links</label>
+      <div id="socialsList"></div>
+      <button class="admin-btn small" id="addSocialBtn">+ Add Social Link</button>
+    </div>
+
+    <div class="admin-panel" style="text-align:center;">
+      <button class="admin-btn" id="saveDraftBtn2" style="font-size:1rem; padding:16px 40px;">ðŸ’¾ Save Draft</button>
+      <button class="admin-btn" id="downloadBtn2" style="font-size:1rem; padding:16px 40px;">â¬‡ Download data.json</button>
+    </div>
+  </div>
+
+  <div id="toast"></div>
+
+  <script src="admin.js"></script>
+</body>
+</html>
