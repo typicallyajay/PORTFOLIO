@@ -96,19 +96,24 @@ body {
   font-size: 16px;
   line-height: 1.65;
   color: var(--text-primary);
-  background: var(--bg-base);
+  background-color: var(--page-tone, var(--bg-base));
   background-image:
     radial-gradient(
       circle at 14% 12%,
-      rgba(102, 112, 215, 0.085) 0%,
+      var(--page-glow-a, rgba(102, 112, 215, 0.085)) 0%,
       transparent 45%
     ),
     radial-gradient(
       circle at 86% 28%,
-      rgba(231, 143, 90, 0.07) 0%,
+      var(--page-glow-b, rgba(231, 143, 90, 0.07)) 0%,
       transparent 40%
-    );
+    ),
+    radial-gradient(rgba(47, 52, 79, 0.075) 0.7px, transparent 0.7px),
+    linear-gradient(rgba(57, 67, 126, 0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(57, 67, 126, 0.018) 1px, transparent 1px);
+  background-size: auto, auto, 18px 18px, 72px 72px, 72px 72px;
   background-attachment: fixed;
+  transition: background-color 850ms ease;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
@@ -728,6 +733,67 @@ strong {
 
 .about-body p + p {
   margin-top: 22px;
+}
+
+.voxel-mini {
+  position: relative;
+  width: min(100%, 260px);
+  margin: 26px auto 0;
+  padding: 10px 10px 8px;
+  overflow: hidden;
+  border: 1px solid rgba(91, 111, 176, 0.15);
+  border-radius: 20px;
+  background:
+    radial-gradient(circle at 78% 18%, rgba(255, 255, 255, 0.8), transparent 36%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.85), rgba(225, 235, 255, 0.78));
+  box-shadow:
+    0 14px 32px rgba(41, 54, 96, 0.12),
+    inset 0 1px rgba(255, 255, 255, 0.95);
+}
+.voxel-mini svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  shape-rendering: crispEdges;
+}
+.voxel-typing-hands {
+  transform-box: view-box;
+  transform-origin: center;
+  animation: voxel-type 560ms steps(2, end) infinite;
+}
+.voxel-coffee {
+  transform-box: view-box;
+  transform-origin: 151px 104px;
+  animation: voxel-sip 6.8s steps(1, end) infinite;
+}
+.voxel-steam {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: voxel-steam 1.8s ease-in-out infinite;
+}
+@keyframes voxel-type {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(1.5px); }
+}
+@keyframes voxel-sip {
+  0%, 66%, 88%, 100% { transform: rotate(0deg); }
+  70%, 82% { transform: rotate(-120deg); }
+}
+@keyframes voxel-steam {
+  0%, 100% { opacity: 0.35; transform: translateY(1px); }
+  50% { opacity: 0.9; transform: translateY(-2px); }
+}
+.voxel-mini figcaption {
+  padding: 2px 8px 3px;
+  color: #333d62;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+.voxel-mini figcaption span {
+  color: #69769f;
+  font-weight: 500;
 }
 
 .about-body strong {
@@ -1378,15 +1444,15 @@ strong {
   right: max(14px, calc((100vw - var(--maxw)) / 2 - 178px));
   z-index: 600;
   width: 164px;
-  height: 492px;
-  grid-template-rows: repeat(6, 82px);
+  height: 574px;
+  grid-template-rows: repeat(7, 82px);
   pointer-events: none;
   transform: none;
 }
 .rope-toy__item {
   --pull-x: 0px;
   --pull-y: 0px;
-  --cord-length: var(--base-length);
+  --base-length: 54px;
   --cord-angle: 0deg;
   position: relative;
   width: 164px;
@@ -1401,12 +1467,13 @@ strong {
 .rope-toy__item:nth-child(4) { animation-delay: -2.1s; }
 .rope-toy__item:nth-child(5) { animation-delay: -2.8s; }
 .rope-toy__item:nth-child(6) { animation-delay: -3.5s; }
+.rope-toy__item:nth-child(7) { animation-delay: -4.2s; }
 .rope-toy__cord {
   position: absolute;
   top: 0;
   left: 66.5px;
   width: 3px;
-  height: var(--cord-length);
+  height: var(--cord-length, var(--base-length));
   border-radius: 3px;
   background:
     repeating-linear-gradient(
@@ -1579,7 +1646,7 @@ strong {
   0%, 100% { rotate: -3deg; }
   50% { rotate: 3deg; }
 }
-@media (max-width: 1599px) {
+@media (max-width: 1100px) {
   body { padding-bottom: 92px; }
   .rope-toy {
     top: auto;
@@ -1588,21 +1655,21 @@ strong {
     left: 50%;
     width: min(420px, calc(100vw - 16px));
     height: 66px;
-    grid-template-columns: repeat(6, minmax(0, 1fr));
+    grid-template-columns: repeat(7, minmax(0, 1fr));
     grid-template-rows: 56px;
     gap: 0;
     padding: 5px 4px;
-    border: 1px solid rgba(255, 255, 255, 0.68);
+    border: 1px solid rgba(255, 255, 255, 0.82);
     border-radius: 23px;
     background:
-      linear-gradient(145deg, rgba(255, 255, 255, 0.38), rgba(255, 255, 255, 0.08)),
-      rgba(42, 47, 76, 0.82);
+      linear-gradient(145deg, rgba(255, 255, 255, 0.76), rgba(255, 255, 255, 0.36)),
+      rgba(241, 245, 255, 0.48);
     box-shadow:
-      inset 0 1px 1px rgba(255, 255, 255, 0.8),
-      0 16px 40px rgba(27, 31, 54, 0.27),
-      0 4px 12px rgba(27, 31, 54, 0.14);
-    -webkit-backdrop-filter: blur(24px) saturate(180%);
-    backdrop-filter: blur(24px) saturate(180%);
+      inset 0 1px 1px rgba(255, 255, 255, 0.96),
+      0 16px 40px rgba(35, 42, 78, 0.16),
+      0 4px 12px rgba(35, 42, 78, 0.08);
+    -webkit-backdrop-filter: blur(28px) saturate(175%);
+    backdrop-filter: blur(28px) saturate(175%);
     transform: translateX(-50%);
   }
   .rope-toy__item {
@@ -1615,7 +1682,7 @@ strong {
   .rope-toy__cord {
     left: calc(50% - 1.5px);
     top: 0;
-    height: var(--cord-length);
+    height: var(--cord-length, var(--base-length));
   }
   .rope-toy__charm {
     top: calc(var(--base-length) - 22px);
@@ -1779,6 +1846,11 @@ strong {
 
 /* ================= ACCESSIBILITY: REDUCED MOTION ================= */
 @media (prefers-reduced-motion: reduce) {
+  .voxel-typing-hands,
+  .voxel-coffee,
+  .voxel-steam {
+    animation: none;
+  }
   *,
   *::before,
   *::after {
@@ -1800,17 +1872,17 @@ strong {
 
 /* ---------- Warm paper canvas with restrained studio color ---------- */
 body {
-  background-color: #f3f2ee;
+  background-color: var(--page-tone, #f3f2ee);
   background-image:
     radial-gradient(rgba(47, 52, 79, 0.1) 0.7px, transparent 0.7px),
     radial-gradient(
       circle at 4% 12%,
-      rgba(99, 108, 205, 0.12) 0%,
+      var(--page-glow-a, rgba(99, 108, 205, 0.12)) 0%,
       transparent 34%
     ),
     radial-gradient(
       circle at 94% 48%,
-      rgba(234, 151, 104, 0.12) 0%,
+      var(--page-glow-b, rgba(234, 151, 104, 0.12)) 0%,
       transparent 30%
     ),
     radial-gradient(
@@ -1824,6 +1896,7 @@ body {
     100% 100%,
     100% 100%;
   background-attachment: fixed;
+  transition: background-color 850ms ease;
 }
 
 /* Hero: softly gridded studio paper */
@@ -1851,9 +1924,10 @@ body {
 
 /* Cool lavender breaks between paper sections */
 .section-alt {
-  background-color: rgba(232, 233, 241, 0.76);
-  background-image: linear-gradient(135deg, rgba(255,255,255,.68), rgba(230,232,243,.7));
+  background-color: var(--section-tone, rgba(232, 233, 241, 0.76));
+  background-image: linear-gradient(135deg, rgba(255,255,255,.56), rgba(230,232,243,.46));
   border-color: rgba(46, 52, 88, 0.1);
+  transition: background-color 850ms ease;
 }
 
 .section {
@@ -2731,14 +2805,15 @@ body {
 
 /* ---------- Portfolio art direction: warm paper, ink, and glass ---------- */
 body {
-  background-color: #f3f2ee;
+  background-color: var(--page-tone, #f3f2ee);
   background-image:
     radial-gradient(rgba(39, 43, 72, 0.085) 0.65px, transparent 0.65px),
-    radial-gradient(ellipse at 8% 14%, rgba(117, 126, 216, 0.13), transparent 34%),
-    radial-gradient(ellipse at 92% 43%, rgba(235, 157, 104, 0.12), transparent 30%),
+    radial-gradient(ellipse at 8% 14%, var(--page-glow-a, rgba(117, 126, 216, 0.13)), transparent 34%),
+    radial-gradient(ellipse at 92% 43%, var(--page-glow-b, rgba(235, 157, 104, 0.12)), transparent 30%),
     radial-gradient(ellipse at 54% 94%, rgba(108, 148, 174, 0.09), transparent 38%);
-  background-size: 20px 20px, 100% 100%, 100% 100%, 100% 100%;
+  background-size: 18px 18px, 100% 100%, 100% 100%, 100% 100%;
   background-attachment: fixed;
+  transition: background-color 850ms ease;
 }
 
 .hero {
@@ -2761,9 +2836,10 @@ body {
 }
 
 .section-alt {
-  background-color: rgba(231, 232, 240, 0.86);
-  background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.6), rgba(226, 228, 239, 0.64));
+  background-color: var(--section-tone, rgba(231, 232, 240, 0.86));
+  background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.52), rgba(226, 228, 239, 0.42));
   border-color: rgba(46, 52, 88, 0.1);
+  transition: background-color 850ms ease;
 }
 
 .status-pill,
@@ -2833,11 +2909,23 @@ body {
     0 3px 7px rgba(31, 36, 64, 0.15);
 }
 
-@media (max-width: 1599px) {
+@media (max-width: 1100px) {
   .rope-toy {
     padding-bottom: max(5px, env(safe-area-inset-bottom));
   }
   .rope-toy__name {
     left: 50%;
+  }
+}
+
+@media (max-width: 360px) {
+  .rope-toy__charm {
+    top: calc(var(--base-length) - 19px);
+    width: 38px;
+    height: 38px;
+  }
+  .rope-toy__glyph svg {
+    width: 30px;
+    height: 30px;
   }
 }

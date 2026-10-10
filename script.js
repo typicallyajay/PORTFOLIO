@@ -246,6 +246,16 @@
   const sections = toyLinks
     .map((button) => document.getElementById(button.dataset.target))
     .filter(Boolean);
+  const pagePalettes = {
+    top: ["#f3f2ee", "rgba(102, 112, 215, 0.14)", "rgba(231, 143, 90, 0.12)", "rgba(232, 233, 241, 0.76)"],
+    about: ["#edf3f2", "rgba(76, 163, 163, 0.16)", "rgba(125, 148, 220, 0.12)", "rgba(219, 237, 234, 0.78)"],
+    work: ["#f4efe8", "rgba(225, 148, 83, 0.16)", "rgba(133, 116, 203, 0.12)", "rgba(242, 229, 211, 0.8)"],
+    experience: ["#eef0f7", "rgba(111, 125, 210, 0.16)", "rgba(181, 139, 202, 0.12)", "rgba(225, 228, 245, 0.8)"],
+    skills: ["#edf3ed", "rgba(85, 170, 125, 0.16)", "rgba(111, 160, 205, 0.12)", "rgba(220, 237, 224, 0.8)"],
+    certifications: ["#f4f0e7", "rgba(221, 164, 75, 0.16)", "rgba(208, 126, 109, 0.11)", "rgba(241, 231, 205, 0.8)"],
+    contact: ["#eef0f5", "rgba(91, 127, 202, 0.16)", "rgba(190, 128, 177, 0.12)", "rgba(224, 231, 244, 0.8)"],
+  };
+  let activePalette = "";
 
   let ticking = false;
   function onScroll() {
@@ -262,6 +272,15 @@
       sections.forEach((s) => {
         if (s.offsetTop <= mark) current = s;
       });
+      const paletteKey = pagePalettes[current?.id] ? current.id : "top";
+      if (paletteKey !== activePalette) {
+        const [tone, glowA, glowB, sectionTone] = pagePalettes[paletteKey];
+        root.style.setProperty("--page-tone", tone);
+        root.style.setProperty("--page-glow-a", glowA);
+        root.style.setProperty("--page-glow-b", glowB);
+        root.style.setProperty("--section-tone", sectionTone);
+        activePalette = paletteKey;
+      }
       toyLinks.forEach((button) => {
         const active = current && button.dataset.target === current.id;
         button.classList.toggle("active", !!active);
