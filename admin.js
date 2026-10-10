@@ -79,7 +79,12 @@ function init() {
 }
 
 document.getElementById("resetBtn").addEventListener("click", () => {
-  if (!confirm("This clears your local draft and reloads the site's default data.json. Continue?")) return;
+  if (
+    !confirm(
+      "This clears your local draft and reloads the site's default data.json. Continue?",
+    )
+  )
+    return;
   localStorage.removeItem(LS_KEY);
   fetch("data.json")
     .then((r) => r.json())
@@ -111,7 +116,9 @@ function populateForm(data) {
   document.getElementById("p_name").value = data.profile.name || "";
   document.getElementById("p_tagline").value = data.profile.tagline || "";
   document.getElementById("p_aboutTitle").value = data.profile.aboutTitle || "";
-  document.getElementById("p_about").value = (data.profile.aboutParagraphs || []).join("\n");
+  document.getElementById("p_about").value = (
+    data.profile.aboutParagraphs || []
+  ).join("\n");
   document.getElementById("p_quote").value = data.profile.quote || "";
 
   document.getElementById("c_email").value = data.contact.email || "";
@@ -184,7 +191,9 @@ function educationCard(item = {}) {
       <textarea data-key="details" rows="3">${escHtml(item.details)}</textarea>
     </div>
   `;
-  card.querySelector(".remove-btn").addEventListener("click", () => card.remove());
+  card
+    .querySelector(".remove-btn")
+    .addEventListener("click", () => card.remove());
   return card;
 }
 
@@ -199,7 +208,9 @@ document.getElementById("addEducationBtn").addEventListener("click", () => {
 });
 
 function readEducation() {
-  return Array.from(document.querySelectorAll('#educationList .entry-card')).map((card) => ({
+  return Array.from(
+    document.querySelectorAll("#educationList .entry-card"),
+  ).map((card) => ({
     date: card.querySelector('[data-key="date"]').value.trim(),
     title: card.querySelector('[data-key="title"]').value.trim(),
     location: card.querySelector('[data-key="location"]').value.trim(),
@@ -223,7 +234,9 @@ function skillItemRow(item = {}) {
     </div>
     <button class="admin-btn danger small remove-btn">✕</button>
   `;
-  row.querySelector(".remove-btn").addEventListener("click", () => row.remove());
+  row
+    .querySelector(".remove-btn")
+    .addEventListener("click", () => row.remove());
   return row;
 }
 
@@ -244,8 +257,12 @@ function skillCategoryCard(cat = {}) {
     <button class="admin-btn small add-skill-item-btn">+ Add Skill</button>
   `;
   const itemsContainer = card.querySelector(".skill-items");
-  (cat.items || []).forEach((it) => itemsContainer.appendChild(skillItemRow(it)));
-  card.querySelector(".remove-btn").addEventListener("click", () => card.remove());
+  (cat.items || []).forEach((it) =>
+    itemsContainer.appendChild(skillItemRow(it)),
+  );
+  card
+    .querySelector(".remove-btn")
+    .addEventListener("click", () => card.remove());
   card.querySelector(".add-skill-item-btn").addEventListener("click", () => {
     itemsContainer.appendChild(skillItemRow());
   });
@@ -263,13 +280,17 @@ document.getElementById("addSkillCategoryBtn").addEventListener("click", () => {
 });
 
 function readSkills() {
-  return Array.from(document.querySelectorAll('#skillsList > .entry-card')).map((card) => ({
-    category: card.querySelector('[data-key="category"]').value.trim(),
-    items: Array.from(card.querySelectorAll(".skill-item-row")).map((row) => ({
-      title: row.querySelector('[data-key="title"]').value.trim(),
-      desc: row.querySelector('[data-key="desc"]').value.trim(),
-    })),
-  }));
+  return Array.from(document.querySelectorAll("#skillsList > .entry-card")).map(
+    (card) => ({
+      category: card.querySelector('[data-key="category"]').value.trim(),
+      items: Array.from(card.querySelectorAll(".skill-item-row")).map(
+        (row) => ({
+          title: row.querySelector('[data-key="title"]').value.trim(),
+          desc: row.querySelector('[data-key="desc"]').value.trim(),
+        }),
+      ),
+    }),
+  );
 }
 
 // ---------- CERTIFICATIONS ----------
@@ -309,7 +330,9 @@ function certCard(item = {}) {
       <input type="url" data-key="link" value="${escAttr(item.link)}" placeholder="https://..." />
     </div>
   `;
-  card.querySelector(".remove-btn").addEventListener("click", () => card.remove());
+  card
+    .querySelector(".remove-btn")
+    .addEventListener("click", () => card.remove());
   return card;
 }
 
@@ -324,7 +347,9 @@ document.getElementById("addCertBtn").addEventListener("click", () => {
 });
 
 function readCertifications() {
-  return Array.from(document.querySelectorAll('#certificationsList .entry-card')).map((card) => ({
+  return Array.from(
+    document.querySelectorAll("#certificationsList .entry-card"),
+  ).map((card) => ({
     category: card.querySelector('[data-key="category"]').value.trim(),
     title: card.querySelector('[data-key="title"]').value.trim(),
     date: card.querySelector('[data-key="date"]').value.trim(),
@@ -384,7 +409,9 @@ function projectCard(item = {}) {
       <label><input type="checkbox" data-key="featured" ${item.featured ? "checked" : ""} /> Featured (shown as the large hero project)</label>
     </div>
   `;
-  card.querySelector(".remove-btn").addEventListener("click", () => card.remove());
+  card
+    .querySelector(".remove-btn")
+    .addEventListener("click", () => card.remove());
   return card;
 }
 
@@ -399,24 +426,26 @@ document.getElementById("addProjectBtn").addEventListener("click", () => {
 });
 
 function readProjects() {
-  return Array.from(document.querySelectorAll('#projectsList .entry-card')).map((card) => ({
-    featured: card.querySelector('[data-key="featured"]').checked,
-    category: card.querySelector('[data-key="category"]').value.trim(),
-    role: card.querySelector('[data-key="role"]').value.trim(),
-    title: card.querySelector('[data-key="title"]').value.trim(),
-    description: card.querySelector('[data-key="description"]').value.trim(),
-    highlights: card
-      .querySelector('[data-key="highlights"]')
-      .value.split("\n")
-      .map((s) => s.trim())
-      .filter(Boolean),
-    tech: card
-      .querySelector('[data-key="tech"]')
-      .value.split(",")
-      .map((s) => s.trim())
-      .filter(Boolean),
-    link: card.querySelector('[data-key="link"]').value.trim(),
-  }));
+  return Array.from(document.querySelectorAll("#projectsList .entry-card")).map(
+    (card) => ({
+      featured: card.querySelector('[data-key="featured"]').checked,
+      category: card.querySelector('[data-key="category"]').value.trim(),
+      role: card.querySelector('[data-key="role"]').value.trim(),
+      title: card.querySelector('[data-key="title"]').value.trim(),
+      description: card.querySelector('[data-key="description"]').value.trim(),
+      highlights: card
+        .querySelector('[data-key="highlights"]')
+        .value.split("\n")
+        .map((s) => s.trim())
+        .filter(Boolean),
+      tech: card
+        .querySelector('[data-key="tech"]')
+        .value.split(",")
+        .map((s) => s.trim())
+        .filter(Boolean),
+      link: card.querySelector('[data-key="link"]').value.trim(),
+    }),
+  );
 }
 
 // ---------- SOCIALS ----------
@@ -437,7 +466,9 @@ function socialRow(item = {}) {
     </div>
     <button class="admin-btn danger small remove-btn" style="margin-top:12px;">Remove</button>
   `;
-  row.querySelector(".remove-btn").addEventListener("click", () => row.remove());
+  row
+    .querySelector(".remove-btn")
+    .addEventListener("click", () => row.remove());
   return row;
 }
 
@@ -452,10 +483,12 @@ document.getElementById("addSocialBtn").addEventListener("click", () => {
 });
 
 function readSocials() {
-  return Array.from(document.querySelectorAll('#socialsList .entry-card')).map((row) => ({
-    label: row.querySelector('[data-key="label"]').value.trim(),
-    url: row.querySelector('[data-key="url"]').value.trim(),
-  }));
+  return Array.from(document.querySelectorAll("#socialsList .entry-card")).map(
+    (row) => ({
+      label: row.querySelector('[data-key="label"]').value.trim(),
+      url: row.querySelector('[data-key="url"]').value.trim(),
+    }),
+  );
 }
 
 // ---------- SAVE / DOWNLOAD ----------
@@ -467,7 +500,9 @@ function saveDraft() {
 
 function downloadJson() {
   const data = readFormIntoState();
-  const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+  const blob = new Blob([JSON.stringify(data, null, 2)], {
+    type: "application/json",
+  });
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
@@ -476,7 +511,9 @@ function downloadJson() {
   a.click();
   a.remove();
   URL.revokeObjectURL(url);
-  toast("Downloaded — replace data.json on your host to make it live for everyone");
+  toast(
+    "Downloaded — replace data.json on your host to make it live for everyone",
+  );
 }
 
 document.getElementById("saveDraftBtn").addEventListener("click", saveDraft);

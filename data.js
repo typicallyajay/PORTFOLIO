@@ -4,14 +4,14 @@ window.PORTFOLIO_FALLBACK = {
   "profile": {
     "name": "Ajay Kothari",
     "role": "Aspiring Full-Stack Developer · AWS Student Builder Group Member · Head, CMPICA Media Crew",
-    "status": "Open to internships",
-    "tagline": "BCA student at CHARUSAT building strong foundations in programming, web development, and databases with hands-on cloud exposure via AWS Student Builder Group.",
-    "headline": "Engineering scalable software, from systems to the cloud.",
+    "status": "Building & learning",
+    "tagline": "BCA student at CHARUSAT exploring software development and UI/UX design, with a focus on building useful, intuitive experiences.",
+    "headline": "Building thoughtful software for the web and beyond.",
     "location": "Abu Road, Rajasthan · CHARUSAT, Gujarat",
     "aboutTitle": "I build useful software — and make it look good.",
     "aboutParagraphs": [
-      "I'm a <strong>BCA student at CMPICA, CHARUSAT University (2024–2027)</strong>, originally from <strong>Abu Road, Rajasthan</strong>. My passion lies in engineering robust full-stack applications and cloud-ready architectures that solve concrete real-world bottlenecks — from real-time geospatial emergency pharmacy locators to AI-driven cybersecurity orchestration.",
-      "My technical toolkit spans core programming (<strong>C, C++, Java, Python, C#</strong>), web engineering (<strong>HTML5, CSS3, JavaScript, PHP, .NET</strong>), and relational databases (<strong>Oracle SQL, MySQL</strong>). As an active <strong>Media Team Member in the AWS Student Builder Group at CHARUSAT</strong>, I collaborate with peers on cloud computing, AWS architecture, and hands-on DevOps practices.",
+      "I'm a <strong>BCA student at CMPICA, CHARUSAT University (2024–2027)</strong>, originally from <strong>Abu Road, Rajasthan</strong>. I enjoy building practical software and thoughtful interfaces that solve real-world problems — from pharmacy tools to AI-driven cybersecurity projects.",
+      "My technical toolkit spans core programming (<strong>C, C++, Java, Python, C#</strong>), web engineering (<strong>HTML5, CSS3, JavaScript, PHP, .NET</strong>), and relational databases (<strong>Oracle SQL, MySQL</strong>). I'm also a <strong>member of the AWS Student Builder Group at CHARUSAT</strong>.",
       "Beyond code, I serve as the <strong>Head of CMPICA Media Crew</strong>, leading a 16-member student media team where I engineered a structured MS Teams data pipeline to replace scattered file-sharing and authored the official operational SOPs. I also competed as a <strong>state-level 10m open-sight air rifle shooter</strong> — a discipline that trained focus, precision, and composure under pressure."
     ],
     "quote": "Turning code into solutions, one byte at a time."
@@ -21,7 +21,7 @@ window.PORTFOLIO_FALLBACK = {
       "date": "Oct 2026 — Present",
       "title": "Media Team Member — AWS Student Builder Group",
       "org": "CHARUSAT University",
-      "details": "Collaborating with peers on cloud computing, AWS architecture, and hands-on DevOps practices."
+      "details": "Member of the AWS Student Builder Group at CHARUSAT."
     },
     {
       "date": "Aug 2025 — Present",
@@ -91,12 +91,8 @@ window.PORTFOLIO_FALLBACK = {
       ]
     },
     {
-      "category": "Cloud & Web Engineering",
+      "category": "Web Engineering & Tools",
       "items": [
-        {
-          "title": "AWS Fundamentals",
-          "desc": "Member, AWS Student Builder Group at CHARUSAT"
-        },
         {
           "title": "HTML5 & CSS3",
           "desc": "Responsive, accessible, clean UI/UX layouts"
@@ -218,7 +214,6 @@ window.PORTFOLIO_FALLBACK = {
       "description": "CompTIA Network+ (N10-008) track covering modern virtualization, WAN architectures, and enterprise security.",
       "learning": [
         "IPv6, WAN technologies, and enterprise wireless standards",
-        "Virtualization and cloud infrastructure fundamentals",
         "Firewalls, NAC, SIEM, MFA, and security troubleshooting"
       ],
       "link": "https://coursera.org/verify/LFP5J8ACU3QI"
@@ -259,7 +254,7 @@ window.PORTFOLIO_FALLBACK = {
         "Decoupled React + Vite client communicating with a scalable Express/MongoDB backend",
         "Multilingual voice and conversational assistance powered by Sarvam AI integration",
         "Real-time surplus dispatch broadcasting with verified volunteer pickup coordination",
-        "Configurable API endpoints allowing flexible distributed cloud deployment"
+        "Configurable API endpoints supporting flexible distributed deployment"
       ],
       "tech": [
         "React",
@@ -324,8 +319,8 @@ window.PORTFOLIO_FALLBACK = {
         "url": "https://github.com/typicallyajay"
       },
       {
-        "label": "Blog",
-        "url": "https://typicallyajay.blogspot.com/"
+        "label": "X",
+        "url": "https://x.com/theajaykothari?s=11"
       }
     ]
   }

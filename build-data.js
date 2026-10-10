@@ -14,5 +14,13 @@ const data = JSON.parse(fs.readFileSync(src, "utf8"));
 const banner =
   "/* AUTO-GENERATED from data.json by build-data.js — do not edit by hand.\n" +
   "   Run `node build-data.js` after changing data.json. */\n";
-fs.writeFileSync(out, banner + "window.PORTFOLIO_FALLBACK = " + JSON.stringify(data, null, 2) + ";\n");
-console.log(`data.js written: ${data.projects.length} projects, ${data.certifications.length} certifications`);
+fs.writeFileSync(
+  out,
+  banner +
+    "window.PORTFOLIO_FALLBACK = " +
+    JSON.stringify(data, null, 2) +
+    ";\n",
+);
+console.log(
+  `data.js written: ${data.projects.length} projects, ${data.certifications.length} certifications`,
+);

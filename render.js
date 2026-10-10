@@ -39,6 +39,12 @@
     '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   const ICON_GITHUB =
     '<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 00-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 015.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.7 5.38-5.26 5.67.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0012 .5z"/></svg>';
+  const SOCIAL_ICONS = {
+    linkedin:
+      '<svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.37V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.36 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.14 20.45H3.58V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.44c.98 0 1.79-.77 1.79-1.73V1.73C24 .77 23.2 0 22.22 0Z"/></svg>',
+    github: ICON_GITHUB,
+    x: '<svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M18.9 2H22l-6.78 7.75L23.2 22h-6.25l-4.9-7.42L5.56 22H2.43l7.25-8.29L1.8 2h6.4l4.43 6.77L18.9 2Zm-1.1 18h1.73L7.27 3.9H5.4L17.8 20Z"/></svg>',
+  };
 
   function getLocalDraft() {
     try {
@@ -77,13 +83,17 @@
     const aboutBody = $("[data-field='about-body']");
     if (aboutBody && Array.isArray(p.aboutParagraphs)) {
       // aboutParagraphs intentionally allow simple <strong> markup from the admin.
-      aboutBody.innerHTML = p.aboutParagraphs.map((t) => `<p>${t}</p>`).join("");
+      aboutBody.innerHTML = p.aboutParagraphs
+        .map((t) => `<p>${t}</p>`)
+        .join("");
     }
 
     const projCount = $("[data-count='projects']");
-    if (projCount && data.projects) projCount.textContent = data.projects.length;
+    if (projCount && data.projects)
+      projCount.textContent = data.projects.length;
     const certCount = $("[data-count='certifications']");
-    if (certCount && data.certifications) certCount.textContent = data.certifications.length;
+    if (certCount && data.certifications)
+      certCount.textContent = data.certifications.length;
   }
 
   function timelineItem(date, title, sub, details, idx) {
@@ -127,7 +137,7 @@
           <span class="skill-tab-num">${String(i + 1).padStart(2, "0")}</span>
           <span class="skill-tab-name">${esc(cat.category)}</span>
           <span class="skill-tab-count">${(cat.items || []).length}</span>
-        </button>`
+        </button>`,
       )
       .join("");
     const panels = data.skills
@@ -140,35 +150,48 @@
             <div class="skill-tile" style="--j:${j}">
               <span class="skill-tile-icon">${ICON_CHECK}</span>
               <div><strong>${esc(it.title)}</strong>${it.desc ? `<span>${esc(it.desc)}</span>` : ""}</div>
-            </div>`
+            </div>`,
             )
             .join("")}
-        </div>`
+        </div>`,
       )
       .join("");
     el.innerHTML = `<div class="skill-tabs" role="tablist" aria-label="Skill categories">${tabs}</div><div class="skill-panels">${panels}</div>`;
   }
 
-  // Simple Icons CDN (monochrome brand SVGs). Duplicated list → seamless loop.
+  // Simple Icons CDN brand SVGs. Duplicated list → seamless loop.
   const TECH = [
-    ["C", "c"], ["C++", "cplusplus"], ["Java", "openjdk"], ["Python", "python"],
-    ["C#", "dotnet"], ["JavaScript", "javascript"], ["PHP", "php"], ["HTML5", "html5"],
-    ["CSS3", "css"], ["React", "react"], ["Node.js", "nodedotjs"], ["MySQL", "mysql"],
-    ["MongoDB", "mongodb"], ["AWS", "amazonwebservices"], ["Git", "git"], ["GitHub", "github"],
-    ["FastAPI", "fastapi"], ["Figma", "figma"]
+    ["C", "c", "555555"],
+    ["C++", "cplusplus", "00599C"],
+    ["Java", "openjdk", "ED8B00"],
+    ["Python", "python", "3776AB"],
+    ["C#", "dotnet", "512BD4"],
+    ["JavaScript", "javascript", "F7DF1E"],
+    ["PHP", "php", "777BB4"],
+    ["HTML5", "html5", "E34F26"],
+    ["CSS3", "css", "1572B6"],
+    ["React", "react", "61DAFB"],
+    ["Node.js", "nodedotjs", "339933"],
+    ["MySQL", "mysql", "4479A1"],
+    ["MongoDB", "mongodb", "47A248"],
+    ["Git", "git", "F05032"],
+    ["GitHub", "github", "181717"],
+    ["FastAPI", "fastapi", "009688"],
+    ["Figma", "figma", "F24E1E"],
   ];
   function renderMarquee() {
     const el = $("[data-field='tech-marquee']");
     if (!el) return;
     const one = TECH.map(
-      ([name, slug]) => `
+      ([name, slug, color]) => `
       <span class="tech-logo">
-        <img src="https://cdn.simpleicons.org/${slug}/475569" alt="" width="22" height="22" loading="lazy"
+        <img src="https://cdn.simpleicons.org/${slug}/${color}" alt="" width="22" height="22" loading="lazy"
              onerror="this.remove()" />
         ${esc(name)}
-      </span>`
+      </span>`,
     ).join("");
-    el.innerHTML = one + `<span aria-hidden="true" class="marquee-dup">${one}</span>`;
+    el.innerHTML =
+      one + `<span aria-hidden="true" class="marquee-dup">${one}</span>`;
   }
 
   function initials(name) {
@@ -203,7 +226,10 @@
           learning.length
             ? `<p class="cert-learn-title">What I learned</p>
                <ul class="check-list compact">${learning
-                 .map((l) => `<li><span class="check">${ICON_CHECK}</span><div>${esc(l)}</div></li>`)
+                 .map(
+                   (l) =>
+                     `<li><span class="check">${ICON_CHECK}</span><div>${esc(l)}</div></li>`,
+                 )
                  .join("")}</ul>`
             : ""
         }
@@ -233,7 +259,9 @@
                ${isGitHub ? ICON_GITHUB + " View on GitHub" : "Open " + ICON_ARROW}
              </a>`
           : "";
-        const chips = (p.tech || []).map((t) => `<span class="chip">${esc(t)}</span>`).join("");
+        const chips = (p.tech || [])
+          .map((t) => `<span class="chip">${esc(t)}</span>`)
+          .join("");
         const problem = p.problemSolved
           ? `<div class="project-problem">
                <span class="problem-label">The problem it solves</span>
@@ -242,7 +270,10 @@
           : "";
         const list = highlights.length
           ? `<ul class="check-list compact">${highlights
-              .map((h) => `<li><span class="check">${ICON_CHECK}</span><div>${esc(h)}</div></li>`)
+              .map(
+                (h) =>
+                  `<li><span class="check">${ICON_CHECK}</span><div>${esc(h)}</div></li>`,
+              )
               .join("")}</ul>`
           : "";
 
@@ -304,19 +335,32 @@
     if (socialsEl && Array.isArray(c.socials)) {
       socialsEl.innerHTML = c.socials
         .filter((s) => safeUrl(s.url))
-        .map(
-          (s) =>
-            `<a href="${esc(safeUrl(s.url))}" class="social-link" target="_blank" rel="noopener noreferrer">${esc(s.label)} ${ICON_ARROW}</a>`
-        )
+        .map((s) => {
+          const key = String(s.label || "").toLowerCase();
+          const icon = SOCIAL_ICONS[key];
+          return `<a href="${esc(safeUrl(s.url))}" class="social-link${icon ? ` social-link--${key}` : ""}" target="_blank" rel="noopener noreferrer" aria-label="${esc(s.label)}${icon ? "" : " profile"}">${icon ? `<span class="social-icon" aria-hidden="true">${icon}</span>` : ""}${esc(s.label)}</a>`;
+        })
         .join("");
     }
   }
 
-  try { renderMarquee(); } catch (e) { console.error("[render] marquee failed:", e); }
+  try {
+    renderMarquee();
+  } catch (e) {
+    console.error("[render] marquee failed:", e);
+  }
 
   loadData().then((data) => {
     if (data) {
-      const steps = [renderHero, renderExperience, renderEducation, renderSkills, renderCertifications, renderProjects, renderContact];
+      const steps = [
+        renderHero,
+        renderExperience,
+        renderEducation,
+        renderSkills,
+        renderCertifications,
+        renderProjects,
+        renderContact,
+      ];
       steps.forEach((fn) => {
         try {
           fn(data);
